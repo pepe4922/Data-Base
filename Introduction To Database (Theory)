@@ -1,0 +1,17 @@
+LEARNING OBJECTIVES
+
+Database can contain many database systems
+Tables and relations
+Introduction To Relationdatabase
+File systems-Method of Storing/Retrieving Data
+Databases Systems - Allow centralized data access (fast,efficient,reliability)
+Realtional Database means tabulated data (in the form of data)
+ACID Properties- Atomicity (The entire transaction takes place at once or doesn't happen at all.) it brings reliabilty
+                - Consistency (The database must be consistent before and after the transaction)
+                - Isolation (Multiple transaction occur independently wihtout interference
+                - Durability (The changes of a succesful transaction occures even if the system failures occcurs).
+             
+RELATIONAL MODELS
+
+
+
