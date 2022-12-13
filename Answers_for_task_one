@@ -1,0 +1,61 @@
+use superstore_b;
+
+-- 4
+select customer_name
+from customers
+where customer_id = 'HP-14815';
+
+-- 5
+
+select order_id,product_name from order_products as op
+inner join products as p on op.product_id = p.product_id
+where order_id ="CA-2018-157833"
+group by order_id;
+
+-- 6
+select product_name,category from 
+products as p
+inner join product_categories as pc on p.sub_category = pc.sub_category
+where product_id = "TEC-AC-10002167";  -- adding sub category cause an error in select statment
+
+-- 7
+SELECT * FROM customers WHERE segment='Consumer';
+
+-- 8
+SELECT sales FROM products WHERE sales>100;
+
+-- 9
+select * from customers 
+where postal_code is NULL;
+
+-- 10
+select * from orders
+where year (order_date) >="2017";
+
+-- 11
+select * from orders
+where year (order_date) between "2015" AND "2016";
+
+-- 12
+select  *,
+datediff (ship_date,order_date) as dated
+from orders 
+having dated > 5;
+
+-- 13 
+select * from products
+where product_name like "Xerox%";
+
+-- 14
+select * from product_categories
+where category ="Office Supplies";
+
+-- 15
+insert into customer_addresses values ("54000","Lahore","Punjab","East","Pakistan");
+
+update customers
+Set postal_code= "54000"
+where customer_id = "KC-16540";
+
+
+
