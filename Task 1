@@ -1,0 +1,29 @@
+Self-Study: Querying Simple Tables
+
+Dataset:
+Download the attached ‘Superstore_Sales_Dataset.csv'.
+
+Tasks:
+
+
+Data Insertion, Retrieval & Updates:
+
+1. Insert the first three records of each table using the data provided in the attached dataset.
+2. Insert all available records in all tables using the commands given in the attached text files.
+3. Show all columns from all tables (each table displayed one by one).
+4. Show the name of the customer whose customer ID is ‘HP-14815’.
+5. Show all items placed under order ID ‘CA-2017-145625’.
+
+6. Show the name, category and sub-category of the product with product ID ‘TEC-AC-
+10002167’.
+
+7. Show all customers belonging to the ‘consumer’ segment.
+8. Show a list of all sales amounting to more than $100.
+9. Show all customers with missing postal addresses.
+10. Show all orders placed in 2017 and afterwards.
+11. Show all orders placed between 2015 and 2016 only.
+12. Show all orders where the order was not shipped within 7 days of being placed.
+13. Show a list of all products with ‘Xerox’ in their name.
+14. Show a list of all office supplies.
+15. Update the address of the customer with ID ‘KC-16540’ to country=‘Pakistan’, city=‘Lahore’,
+state=‘Punjab’, postal_code=‘54000’, region=‘East’.
