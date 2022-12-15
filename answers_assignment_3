@@ -1,0 +1,51 @@
+use superstore_b;
+
+select*
+from customers as c
+inner join customer_addresses as ca on c.postal_code=ca.postal_code;
+
+select customer_id,customer_name,postal_code
+from customers
+where postal_code is NULL;
+
+-- 4
+select * from orders;
+select* from customers;
+
+select segment,count(*) as total_order
+from customers as cust
+inner join orders as ord on cust.customer_id = ord.customer_id
+where year (order_date) = 2016
+group by segment;
+
+-- 5
+select *
+from customers as cust
+left join orders as ord on cust.customer_id = ord.customer_id
+where order_id is NULL;
+
+-- 6
+select * from customers
+union
+select * from products;
+
+-- 7
+select segment , city ,count(*)
+from customer_addresses as cust_address
+inner join customers as cust on cust_address.postal_code = cust.postal_code
+group  by city,segment
+order by city Asc;
+
+-- 8
+select category, sum(sales) as total_sales
+from product_categories as pc
+inner join products as p on pc.sub_category = p.sub_category
+group by category;
+
+
+-- 9
+select city,order_id
+from customers as cs
+left outer join customer_addresses as ca on cs.postal_code =ca.postal_code
+inner join orders as ord on cs.customer_id = ord.customer_id
+Where order_id is NULL;
