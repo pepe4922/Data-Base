@@ -1,0 +1,14 @@
+Tasks:
+
+Data Retrieval & Aggregation from Multiple Tables:
+
+1. Show each customer along with their complete address in one table.
+2. Find any orders that do not have a postal code available for shipment.
+3. Find the customer that has placed the most orders.
+4. Find the total number of orders placed by each customer segment in the year 2016.
+5. Show any customers that have not yet placed an order.
+6. Find the name of the top-rated customer that has spent the greatest amount of money.
+7. Find the distribution of customer segments in each city.
+8. Find the total sales volume per product category.
+9. Find the names of any cities that have not placed any orders yet.
+10. Re-create a single table of all entries as given in the ‘csv’ flat file.
