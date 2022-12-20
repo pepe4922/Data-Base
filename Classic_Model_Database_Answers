@@ -1,0 +1,185 @@
+USE classicmodels;
+
+SELECT * FROM customers
+LIMIT 5;
+
+SELECT * FROM employees
+LIMIT 5;
+
+SELECT * FROM offices
+LIMIT 5;
+
+SELECT * FROM orderdetails
+LIMIT 5;
+
+
+SELECT * FROM orders
+LIMIT 5;
+
+SELECT * FROM productlines
+LIMIT 5;
+
+SELECT * FROM products
+LIMIT 5;
+
+
+
+-- 2 -> Display the employee head count of the company.
+
+
+
+SELECT COUNT(*) AS head_count FROM employees;
+
+-- 3-> Display the primary key fields only for each table
+
+SELECT customerNumber FROM customers;
+
+
+
+
+
+-- 4 ->Display all products that are out of stock.
+
+
+SELECT * FROM products
+WHERE quantityInstock IS NULL;
+
+
+-- 5 Display the total number of classic car models currently in stock.
+SELECT productline,count(productline) as sum
+FROM products  
+WHERE productLine = 'Classic Cars';
+
+-- 6  ->Display the employee number, first name and last name of all sales
+-- managers.
+
+SELECT employeeNumber, firstName, lastName, jobTitle 
+FROM employees
+WHERE jobTitle LIKE "Sales Manager%";
+
+-- 7. Display all Mercedes based models.
+
+SELECT * FROM products
+WHERE productName LIKE "%Mercedes%";
+
+-- 8. Change the job title of employee number 1002 from President to CEO.
+UPDATE employees 
+SET jobTitle = "CEO"
+WHERE employeeNumber = 1002;
+
+
+SELECT * FROM employees where employeeNumber = 1002;
+
+-- 9. Display all orders that were shipped after the customer’s requirement date.
+SELECT * 
+FROM orders
+WHERE  DAY(shippedDate) > DAY(requiredDate);
+
+-- 10 Display all the orders that were cancelled before getting shipped.
+SELECT * FROM orders
+WHERE (status = "In Process") AND (shippedDate IS NULL);
+
+
+-- 11 ->Display total number of customers handled by each sales representative.
+
+
+SELECT salesRepEmployeeNumber, COUNT(*) AS num_customers
+FROM customers
+GROUP BY salesRepEmployeeNumber;
+
+
+-- 12 -> Display the country with the least number of customers.
+
+SELECT country, COUNT(*) AS num_customers
+FROM customers
+GROUP BY country
+HAVING COUNT(*) = (SELECT MIN(num_customers) FROM (SELECT COUNT(*) AS num_customers FROM customers GROUP BY country) as C);
+
+
+-- 13 -> Display the total number of products in each product line, along with the
+-- min, max and average manufacturer suggested retail price (MSRP) of
+-- products in the product line.
+
+
+SELECT productline, COUNT(*) AS num_products, MIN(MSRP) AS min_msrp, MAX(MSRP) AS max_msrp, AVG(MSRP) AS avg_msrp
+FROM products
+GROUP BY productline;
+
+
+-- 14-> Display all order IDs containing at least 15 products sorted in decreasing
+-- order of ordered product count.
+select * from orderdetails;
+SELECT orderNumber as order_Id,count(*) as num_products
+FROM orderdetails
+GROUP BY orderNumber
+HAVING COUNT(*) >=15
+ORDER BY num_products DESC;
+
+
+-- 15 -> Display single order ID which generated the greatest revenue income.
+select * from orderdetails;
+SELECT orderNumber as order_Id,SUM(quantityOrdered * priceEach) as greatest_revenue
+FROM orderdetails
+GROUP BY orderNumber
+ORDER BY greatest_revenue Desc
+LIMIT 1;	
+
+
+
+-- 16 -> Display the employee number, first name, last name and the country where
+-- each employee works.
+
+
+SELECT employeeNumber,firstname,lastname,country
+FROM employees
+LEFT JOIN offices USING (officecode);
+
+
+-- 17 Display the product code, product name and slogan (text description) for
+-- each product.
+
+SELECT productCode, productName,textDescription FROM products
+INNER JOIN productlines USING (productLine)
+GROUP BY productName;
+
+
+-- 18 -> Find the average profit earned from products supplied by each vendor,
+-- sorted in descending order.
+
+SELECT productVendor, AVG(priceEach-buyPrice) AS avg_profit
+FROM products AS p
+INNER JOIN orderdetails AS od ON p.productCode = od.productCode
+group by p.productVendor
+ORDER BY avg_profit DESC;
+
+ -- 19 Display the employee number, first name and last name of the sales
+-- representative that had the greatest number of cancelled orders.
+
+
+
+SELECT e.employeeNumber, e.firstName, e.lastName, COUNT(*) AS cancel_orders
+FROM customers AS c
+INNER JOIN employees AS e ON c.salesRepEmployeeNumber = e.employeeNumber
+INNER JOIN orders AS o ON c.customerNumber = o.customerNumber 
+GROUP BY o.status ="cancelled"
+ORDER BY cancel_orders DESC
+LIMIT 1;
+
+
+
+
+
+
+-- 20 -> Display the first name and last name of each employee, along with the first
+-- name and last name of their boss. Display ‘NULL’ if boss does not exist.
+SELECT * FROM employees;
+SELECT e.firstname AS 'Employee First Name', e.lastname AS 'Employee Last Name', b.firstname AS 'Boss First Name', b.lastname AS 'Boss Last Name'
+FROM  employees as e
+LEFT JOIN employees b on e.reportsTo=b.employeeNumber;
+
+-- 21
+SELECT c.customerName, c.country, o.country AS salesReperesentativeCountry
+FROM customers AS c
+INNER JOIN employees AS e ON c.salesRepEmployeeNumber = e.employeeNumber
+INNER JOIN offices AS o ON e.officeCode = o.officeCode
+WHERE c.country != o.country;
